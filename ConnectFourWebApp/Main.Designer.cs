@@ -1,4 +1,8 @@
-﻿namespace ConnectFourWebApp
+﻿// Alyssa Hove and Katheryn Weeden
+// 2/25/19
+// GUI Prototype for Connect Four
+
+namespace ConnectFourWebApp
 {
     partial class Main
     {
@@ -28,42 +32,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnNewGame = new System.Windows.Forms.Button();
+            this.btnSavedGame = new System.Windows.Forms.Button();
+            this.lblConnectFour = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // button1
+            // btnNewGame
             // 
-            this.button1.Location = new System.Drawing.Point(160, 207);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(139, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "New Game";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnNewGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnNewGame.Location = new System.Drawing.Point(160, 174);
+            this.btnNewGame.Name = "btnNewGame";
+            this.btnNewGame.Size = new System.Drawing.Size(139, 56);
+            this.btnNewGame.TabIndex = 0;
+            this.btnNewGame.Text = "New Game";
+            this.btnNewGame.UseVisualStyleBackColor = true;
+            this.btnNewGame.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // btnSavedGame
             // 
-            this.button2.Location = new System.Drawing.Point(327, 207);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(139, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Continue Saved Game";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnSavedGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnSavedGame.Location = new System.Drawing.Point(327, 174);
+            this.btnSavedGame.Name = "btnSavedGame";
+            this.btnSavedGame.Size = new System.Drawing.Size(139, 56);
+            this.btnSavedGame.TabIndex = 1;
+            this.btnSavedGame.Text = "Continue Saved Game";
+            this.btnSavedGame.UseVisualStyleBackColor = true;
+            this.btnSavedGame.Click += new System.EventHandler(this.button2_Click);
             // 
-            // label1
+            // lblConnectFour
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Maroon;
-            this.label1.Location = new System.Drawing.Point(150, 64);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(316, 55);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Connect Four";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.lblConnectFour.AutoSize = true;
+            this.lblConnectFour.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblConnectFour.ForeColor = System.Drawing.Color.Maroon;
+            this.lblConnectFour.Location = new System.Drawing.Point(156, 85);
+            this.lblConnectFour.Name = "lblConnectFour";
+            this.lblConnectFour.Size = new System.Drawing.Size(316, 55);
+            this.lblConnectFour.TabIndex = 2;
+            this.lblConnectFour.Text = "Connect Four";
+            this.lblConnectFour.Click += new System.EventHandler(this.label1_Click);
             // 
             // Main
             // 
@@ -71,9 +77,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.lblConnectFour);
+            this.Controls.Add(this.btnSavedGame);
+            this.Controls.Add(this.btnNewGame);
             this.Name = "Main";
             this.Text = "Main";
             this.Load += new System.EventHandler(this.Main_Load);
@@ -84,8 +90,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnNewGame;
+        private System.Windows.Forms.Button btnSavedGame;
+        private System.Windows.Forms.Label lblConnectFour;
     }
 }

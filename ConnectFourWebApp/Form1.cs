@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Alyssa Hove and Katheryn Weeden
+// 2/25/19
+// GUI Prototype for Connect Four
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,7 +25,7 @@ namespace ConnectFourWebApp
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            g = panel1.CreateGraphics();
+            g = panelBoard.CreateGraphics();
             g.FillEllipse(pen, 40, 10, 40, 40);
             g.FillEllipse(pen, 40, 60, 40, 40);
             g.FillEllipse(pen, 40, 110, 40, 40);

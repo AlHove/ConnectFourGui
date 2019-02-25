@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Alyssa Hove and Katheryn Weeden
+// 2/25/19
+// GUI Prototype for Connect Four
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
