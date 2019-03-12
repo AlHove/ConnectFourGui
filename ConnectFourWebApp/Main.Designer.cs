@@ -90,6 +90,7 @@ namespace ConnectFourWebApp
 
         #endregion
 
+
         private System.Windows.Forms.Button btnNewGame;
         private System.Windows.Forms.Button btnSavedGame;
         private System.Windows.Forms.Label lblConnectFour;

@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static ConnectFour.Board;
+using static ConnectFour.Player;
 
 namespace ConnectFourWebApp
 {
@@ -18,12 +20,39 @@ namespace ConnectFourWebApp
     {
         Graphics g;
         SolidBrush pen = new SolidBrush(Color.FromArgb(250, 255, 255));
+        int playerTurn = 1;
+        int col = 0;
+        int row = 0
+        Player playerCurrent;
+
         public Form1()
         {
             InitializeComponent();
+
+            //gotta pass these widgets to the controller
+                ctrl = new Controller(btnSave, panelBoard, playerCurrent);
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void panelBoard_Paint(object sender, PaintEventArgs e)
+        {
+            // check if the piece is in the Board. If it isn't use then no
+            // math to do the painting g.FillEllipse(pen, 40, 10, 40, 40);\
+            // for y: 10 + (col - 1) * 50
+            // for x: 40 + (row - 1) * 80
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void playerTurn_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void drawBoard()
         {
             g = panelBoard.CreateGraphics();
             g.FillEllipse(pen, 40, 10, 40, 40);
@@ -75,17 +104,6 @@ namespace ConnectFourWebApp
             g.FillEllipse(pen, 520, 210, 40, 40);
             g.FillEllipse(pen, 520, 260, 40, 40);
             g.FillEllipse(pen, 520, 310, 40, 40);
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void playerTurn_TextChanged(object sender, EventArgs e)
-        {
-            
         }
     }
 }

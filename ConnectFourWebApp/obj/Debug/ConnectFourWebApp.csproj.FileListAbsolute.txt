@@ -9,3 +9,14 @@ C:\Users\Alyssa\Documents\CS\SoftwareModels\ConnectFourWebApp\ConnectFourWebApp\
 C:\Users\Alyssa\Documents\CS\SoftwareModels\ConnectFourWebApp\ConnectFourWebApp\obj\Debug\ConnectFourWebApp.exe
 C:\Users\Alyssa\Documents\CS\SoftwareModels\ConnectFourWebApp\ConnectFourWebApp\obj\Debug\ConnectFourWebApp.pdb
 C:\Users\Alyssa\Documents\CS\SoftwareModels\ConnectFourWebApp\ConnectFourWebApp\obj\Debug\ConnectFourWebApp.Main.resources
+C:\Users\Alyssa\Documents\GitHub\ConnectFourGui\ConnectFourWebApp\bin\Debug\ConnectFourWebApp.exe.config
+C:\Users\Alyssa\Documents\GitHub\ConnectFourGui\ConnectFourWebApp\bin\Debug\ConnectFourWebApp.exe
+C:\Users\Alyssa\Documents\GitHub\ConnectFourGui\ConnectFourWebApp\bin\Debug\ConnectFourWebApp.pdb
+C:\Users\Alyssa\Documents\GitHub\ConnectFourGui\ConnectFourWebApp\obj\Debug\ConnectFourWebApp.csprojAssemblyReference.cache
+C:\Users\Alyssa\Documents\GitHub\ConnectFourGui\ConnectFourWebApp\obj\Debug\ConnectFourWebApp.Form1.resources
+C:\Users\Alyssa\Documents\GitHub\ConnectFourGui\ConnectFourWebApp\obj\Debug\ConnectFourWebApp.Main.resources
+C:\Users\Alyssa\Documents\GitHub\ConnectFourGui\ConnectFourWebApp\obj\Debug\ConnectFourWebApp.Properties.Resources.resources
+C:\Users\Alyssa\Documents\GitHub\ConnectFourGui\ConnectFourWebApp\obj\Debug\ConnectFourWebApp.csproj.GenerateResource.cache
+C:\Users\Alyssa\Documents\GitHub\ConnectFourGui\ConnectFourWebApp\obj\Debug\ConnectFourWebApp.csproj.CoreCompileInputs.cache
+C:\Users\Alyssa\Documents\GitHub\ConnectFourGui\ConnectFourWebApp\obj\Debug\ConnectFourWebApp.exe
+C:\Users\Alyssa\Documents\GitHub\ConnectFourGui\ConnectFourWebApp\obj\Debug\ConnectFourWebApp.pdb
