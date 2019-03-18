@@ -82,7 +82,6 @@ namespace ConnectFourWebApp
             this.Controls.Add(this.btnNewGame);
             this.Name = "Main";
             this.Text = "Main";
-            this.Load += new System.EventHandler(this.Main_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

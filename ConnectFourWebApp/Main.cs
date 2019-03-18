@@ -41,10 +41,5 @@ namespace ConnectFourWebApp
             savedGame.Show();
             this.Hide();
         }
-
-        private void Main_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
