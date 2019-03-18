@@ -11,8 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static ConnectFour.Board;
-using static ConnectFour.Player;
+using static ConnectFourWebApp.Board;
+using static ConnectFourWebApp.Player;
 
 namespace ConnectFourWebApp
 {
@@ -20,10 +20,15 @@ namespace ConnectFourWebApp
     {
         Graphics g;
         SolidBrush pen = new SolidBrush(Color.FromArgb(250, 255, 255));
+        SolidBrush p1Brush = new SolidBrush(Color.FromArgb(65,102,0));
+        SolidBrush p2Brush = new SolidBrush(Color.FromArgb(201,40,20));
         int playerTurn = 1;
         int col = 0;
         int row = 0;
         Controller ctrl;
+        Board b;
+        Player playerOne;
+        Player playerTwo;
 
         public Form1()
         {
@@ -113,6 +118,11 @@ namespace ConnectFourWebApp
         }
 
         private void columnUpDown_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
         {
 
         }

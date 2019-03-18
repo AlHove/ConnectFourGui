@@ -7,14 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConnectFour
+namespace ConnectFourWebApp
 {
     public class Player
     {
         //public string color;
         public int turnNumber; 
         public char piece; // Player Symbol
-
         public char PropPlayer
         {
             get

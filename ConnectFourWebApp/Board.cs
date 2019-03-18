@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static ConnectFour.Player;
+using static ConnectFourWebApp.Player;
 
-namespace ConnectFour
+namespace ConnectFourWebApp
 {
     public class Board
     {

@@ -7,12 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static ConnectFour.Player;
-using static ConnectFour.Board;
+using static ConnectFourWebApp.Player;
+using static ConnectFourWebApp.Board;
 using System.Runtime.Serialization.Formatters.Soap;
 using System.IO;
 
-namespace ConnectFour
+namespace ConnectFourWebApp
 {
     public class Game
     {

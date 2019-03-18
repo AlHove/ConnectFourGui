@@ -5,9 +5,9 @@ using System.Text;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Soap;
 using System.Windows.Forms;
-using static ConnectFour.Game;
-using static ConnectFour.Board;
-using static ConnectFour.Player;
+using static ConnectFourWebApp.Game;
+using static ConnectFourWebApp.Board;
+using static ConnectFourWebApp.Player;
 
 namespace ConnectFourWebApp
 {
@@ -35,7 +35,7 @@ namespace ConnectFourWebApp
         /// <summary>
         /// Model interface elements
         /// </summary>
-
+        private Board board = null;
         /// <summary>
         /// GUI elements we want to control
         /// </summary>
@@ -48,7 +48,6 @@ namespace ConnectFourWebApp
         private Panel panelBoard = null;
         private NumericUpDown rowUpDown = null;
         private NumericUpDown columnUpDown = null;
-
 
         /// <summary>
         /// Default constructor to grab GUI widgets to control
@@ -145,7 +144,7 @@ namespace ConnectFourWebApp
 
             Stream saveFile = File.Create(saveFileName);
             SoapFormatter serializer = new SoapFormatter();
-            serializer.Serialize(saveFile, game);
+            serializer.Serialize(saveFile, g);
             saveFile.Close();
 
             //allow start over
