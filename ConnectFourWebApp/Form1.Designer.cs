@@ -109,6 +109,7 @@ namespace ConnectFourWebApp
             0,
             0,
             0});
+            this.rowUpDown.ValueChanged += new System.EventHandler(this.rowUpDown_ValueChanged);
             // 
             // lblRow
             // 
@@ -152,6 +153,7 @@ namespace ConnectFourWebApp
             0,
             0,
             0});
+            this.columnUpDown.ValueChanged += new System.EventHandler(this.columnUpDown_ValueChanged);
             // 
             // Form1
             // 

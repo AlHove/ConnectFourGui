@@ -22,15 +22,16 @@ namespace ConnectFourWebApp
         SolidBrush pen = new SolidBrush(Color.FromArgb(250, 255, 255));
         int playerTurn = 1;
         int col = 0;
-        int row = 0
-        Player playerCurrent;
+        int row = 0;
+        Controller ctrl;
 
         public Form1()
         {
             InitializeComponent();
 
             //gotta pass these widgets to the controller
-                ctrl = new Controller(btnSave, panelBoard, playerCurrent);
+                ctrl = new Controller(panelBoard, txtPlayerTurn, btnSave, btnExit, lblRow, 
+                                      lblColumn, rowUpDown, columnUpDown);
         }
 
         private void panelBoard_Paint(object sender, PaintEventArgs e)
@@ -104,6 +105,16 @@ namespace ConnectFourWebApp
             g.FillEllipse(pen, 520, 210, 40, 40);
             g.FillEllipse(pen, 520, 260, 40, 40);
             g.FillEllipse(pen, 520, 310, 40, 40);
+        }
+
+        private void rowUpDown_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void columnUpDown_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

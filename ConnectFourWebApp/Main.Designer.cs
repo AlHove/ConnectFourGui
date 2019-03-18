@@ -46,7 +46,7 @@ namespace ConnectFourWebApp
             this.btnNewGame.TabIndex = 0;
             this.btnNewGame.Text = "New Game";
             this.btnNewGame.UseVisualStyleBackColor = true;
-            this.btnNewGame.Click += new System.EventHandler(this.button1_Click);
+            this.btnNewGame.Click += new System.EventHandler(this.btnNewGame_Click);
             // 
             // btnSavedGame
             // 
@@ -57,7 +57,7 @@ namespace ConnectFourWebApp
             this.btnSavedGame.TabIndex = 1;
             this.btnSavedGame.Text = "Continue Saved Game";
             this.btnSavedGame.UseVisualStyleBackColor = true;
-            this.btnSavedGame.Click += new System.EventHandler(this.button2_Click);
+            this.btnSavedGame.Click += new System.EventHandler(this.btnSavedGame_Click);
             // 
             // lblConnectFour
             // 

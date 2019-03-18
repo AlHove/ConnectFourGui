@@ -39,9 +39,8 @@ namespace ConnectFourWebApp
         /// <summary>
         /// GUI elements we want to control
         /// </summary>
-        private Label WordStatusLbl = null;
+
         private TextBox txtPlayerTurn = null;
-        private TextBox ImageTxb = null;
         private Button btnSave = null;
         private Button btnExit = null;
         private Label lblRow = null;
@@ -54,9 +53,18 @@ namespace ConnectFourWebApp
         /// <summary>
         /// Default constructor to grab GUI widgets to control
         /// </summary>
-        public Controller(Button sr, Panel i, Player s)
+        public Controller(Panel board, TextBox PlayerT, Button save, Button exit, Label row, Label col, NumericUpDown udRow, NumericUpDown udCol)
         {
-          
+            panelBoard = board;
+            txtPlayerTurn = PlayerT;
+            btnSave = save;
+            btnExit = exit;
+            lblRow = row;
+            lblCol = col;
+            rowUpDown = udRow;
+            columnUpDown = udCol;
+            //enter initial state
+            GoSetupState();
         }
 
         ///////////////////////////// S T A T E S ////////////////////////

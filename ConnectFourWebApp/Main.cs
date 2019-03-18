@@ -26,12 +26,12 @@ namespace ConnectFourWebApp
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnNewGame_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnSavedGame_Click(object sender, EventArgs e)
         {
 
         }
