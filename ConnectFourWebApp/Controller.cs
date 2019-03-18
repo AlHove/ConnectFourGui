@@ -35,7 +35,9 @@ namespace ConnectFourWebApp
         /// <summary>
         /// Model interface elements
         /// </summary>
+        private Game game = null;
         private Board board = null;
+        private Player currentP = null;
         /// <summary>
         /// GUI elements we want to control
         /// </summary>
@@ -88,16 +90,12 @@ namespace ConnectFourWebApp
 
             SetUpState = States.Init;
 
-         
-
             IfSavedFileTransition();
         }
 
         private void GoCouldRestoreState()
         {
             SetUpState = States.CouldRestore;
-
-           
         }
 
         private void GoRestoreState()
@@ -144,7 +142,7 @@ namespace ConnectFourWebApp
 
             Stream saveFile = File.Create(saveFileName);
             SoapFormatter serializer = new SoapFormatter();
-            serializer.Serialize(saveFile, g);
+            serializer.Serialize(saveFile, game);
             saveFile.Close();
 
             //allow start over
@@ -226,7 +224,7 @@ namespace ConnectFourWebApp
 
         private void IfGameOverTransition()
         {
-            if (game.IsSolved() && TopLevelState == States.Play)
+            if (board.CheckWin(board,currentP) && TopLevelState == States.Play)
             {
                 GoGameOverState();
             }
@@ -236,6 +234,9 @@ namespace ConnectFourWebApp
         /// general update of display
         /// </summary>
         /// <param name="msg"></param>
-
+        private void UpdateGameDisplay()
+        {
+       
+        }
     }
 }

@@ -20,20 +20,18 @@ namespace ConnectFourWebApp
     {
         Graphics g;
         SolidBrush pen = new SolidBrush(Color.FromArgb(250, 255, 255));
-        SolidBrush p1Brush = new SolidBrush(Color.FromArgb(65,102,0));
-        SolidBrush p2Brush = new SolidBrush(Color.FromArgb(201,40,20));
+        SolidBrush p1Brush = new SolidBrush(Color.FromArgb(65, 102, 0));
+        SolidBrush p2Brush = new SolidBrush(Color.FromArgb(201, 131, 220));
         int playerTurn = 1;
-        int col = 0;
-        int row = 0;
+        int col = 1;
+        int row = 1;
         Controller ctrl;
+        Game game = null;
         Board b;
-        Player playerOne;
-        Player playerTwo;
 
         public Form1()
         {
             InitializeComponent();
-
             //gotta pass these widgets to the controller
                 ctrl = new Controller(panelBoard, txtPlayerTurn, btnSave, btnExit, lblRow, 
                                       lblColumn, rowUpDown, columnUpDown);
@@ -41,24 +39,17 @@ namespace ConnectFourWebApp
 
         private void panelBoard_Paint(object sender, PaintEventArgs e)
         {
-            // check if the piece is in the Board. If it isn't use then no
-            // math to do the painting g.FillEllipse(pen, 40, 10, 40, 40);\
-            // for y: 10 + (col - 1) * 50
-            // for x: 40 + (row - 1) * 80
+           
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void playerTurn_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
 
-        private void drawBoard()
+        private void panelBoard_drawBoard(object sender, PaintEventArgs e)
         {
             g = panelBoard.CreateGraphics();
             g.FillEllipse(pen, 40, 10, 40, 40);
@@ -114,18 +105,36 @@ namespace ConnectFourWebApp
 
         private void rowUpDown_ValueChanged(object sender, EventArgs e)
         {
-
+            row = Convert.ToInt32(rowUpDown.Value);
         }
 
         private void columnUpDown_ValueChanged(object sender, EventArgs e)
         {
-
+            col = Convert.ToInt32(columnUpDown.Value);
         }
         
         //Close form on exit
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void placeBtn_Click(object sender, EventArgs e)
+        {
+            g = panelBoard.CreateGraphics();
+            int y = ((col - 1) * 50) + 10;
+            int x = ((row - 1) * 80) + 40;
+            if (playerTurn == 1)
+            {
+                g.FillEllipse(p1Brush, x, y, 40, 40);
+                playerTurn = 2;
+            }
+            else if (playerTurn == 2)
+            {
+                g.FillEllipse(p2Brush, x, y, 40, 40);
+            }
+            // check if the piece is in the Board. If it isn't use then no
+
         }
     }
 }

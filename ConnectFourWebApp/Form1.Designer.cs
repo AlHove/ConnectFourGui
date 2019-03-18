@@ -40,6 +40,7 @@ namespace ConnectFourWebApp
             this.lblRow = new System.Windows.Forms.Label();
             this.lblColumn = new System.Windows.Forms.Label();
             this.columnUpDown = new System.Windows.Forms.NumericUpDown();
+            this.placeBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.rowUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.columnUpDown)).BeginInit();
             this.SuspendLayout();
@@ -51,7 +52,7 @@ namespace ConnectFourWebApp
             this.panelBoard.Name = "panelBoard";
             this.panelBoard.Size = new System.Drawing.Size(586, 365);
             this.panelBoard.TabIndex = 0;
-            this.panelBoard.Paint += new System.Windows.Forms.PaintEventHandler(this.panelBoard_Paint);
+            this.panelBoard.Paint += new System.Windows.Forms.PaintEventHandler(this.panelBoard_drawBoard);
             // 
             // btnSave
             // 
@@ -62,7 +63,7 @@ namespace ConnectFourWebApp
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.button1_Click);
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // txtPlayerTurn
             // 
@@ -70,12 +71,11 @@ namespace ConnectFourWebApp
             this.txtPlayerTurn.Enabled = false;
             this.txtPlayerTurn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.txtPlayerTurn.ForeColor = System.Drawing.Color.Black;
-            this.txtPlayerTurn.Location = new System.Drawing.Point(100, 36);
+            this.txtPlayerTurn.Location = new System.Drawing.Point(100, 12);
             this.txtPlayerTurn.Name = "txtPlayerTurn";
             this.txtPlayerTurn.Size = new System.Drawing.Size(204, 22);
             this.txtPlayerTurn.TabIndex = 0;
             this.txtPlayerTurn.Text = "Player 1\'s turn";
-            this.txtPlayerTurn.TextChanged += new System.EventHandler(this.playerTurn_TextChanged);
             // 
             // btnExit
             // 
@@ -156,11 +156,23 @@ namespace ConnectFourWebApp
             0});
             this.columnUpDown.ValueChanged += new System.EventHandler(this.columnUpDown_ValueChanged);
             // 
+            // placeBtn
+            // 
+            this.placeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.placeBtn.Location = new System.Drawing.Point(703, 220);
+            this.placeBtn.Name = "placeBtn";
+            this.placeBtn.Size = new System.Drawing.Size(75, 38);
+            this.placeBtn.TabIndex = 7;
+            this.placeBtn.Text = "Place";
+            this.placeBtn.UseVisualStyleBackColor = true;
+            this.placeBtn.Click += new System.EventHandler(this.placeBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.placeBtn);
             this.Controls.Add(this.lblColumn);
             this.Controls.Add(this.columnUpDown);
             this.Controls.Add(this.lblRow);
@@ -188,6 +200,7 @@ namespace ConnectFourWebApp
         private System.Windows.Forms.Label lblRow;
         private System.Windows.Forms.Label lblColumn;
         private System.Windows.Forms.NumericUpDown columnUpDown;
+        private System.Windows.Forms.Button placeBtn;
     }
 }
 
