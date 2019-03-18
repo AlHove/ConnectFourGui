@@ -121,10 +121,11 @@ namespace ConnectFourWebApp
         {
 
         }
-
+        
+        //Close form on exit
         private void btnExit_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
     }
 }
