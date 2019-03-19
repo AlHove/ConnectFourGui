@@ -18,8 +18,6 @@ namespace ConnectFourWebApp
         /// general constants
         /// </summary>
         const string saveFileName = "ConnectFourSave.xml";
-        const string saveText = "Save Game";
-        const string restoreText = "Restore Game";
 
         /// <summary>
         /// State names and statechart state variables
@@ -107,23 +105,28 @@ namespace ConnectFourWebApp
 
             Stream saveFile = File.OpenRead(saveFileName);
             SoapFormatter deserializer = new SoapFormatter();
-            int turn = (int)(deserializer.Deserialize(saveFile));
-            char[,] g = (char[,])(deserializer.Deserialize(saveFile));
+            board = (Board)(deserializer.Deserialize(saveFile));
+            currentP = (Player)(deserializer.Deserialize(saveFile));
+
             saveFile.Close();
             Console.WriteLine();
+           
         }
 
         private void GoNewGameState()
         {
-            currentP = new Player();
-            currentP.piece = 'X';
-            currentP.turnNumber = 1;
-            board = new Board();
-            board.SetBoard();
+            clearBoard();
             if (File.Exists(saveFileName))
             {
                 File.Delete(saveFileName);
             }
+            currentP = new Player();
+            currentP.piece = 'X';
+            currentP.turnNumber = 1;
+            board = null;
+            board = new Board();
+            board.SetBoard();
+            txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
         }
 
         private void GoPlayState()
@@ -133,41 +136,47 @@ namespace ConnectFourWebApp
             int row = Convert.ToInt32(rowUpDown.Value) - 1;
             int col = Convert.ToInt32(columnUpDown.Value) - 1;
             char c = currentP.piece;
-            int playerTurn = currentP.piece;
             valid = board.ValidateLocation(board, row, col);
+            System.Diagnostics.Debug.WriteLine(col);
+            System.Diagnostics.Debug.WriteLine(row);
+            System.Diagnostics.Debug.WriteLine(currentP.turnNumber);
+            System.Diagnostics.Debug.WriteLine(valid);
 
             if (valid == true)
             {
                 board.Grid[row, col] = c;
                 g = panelBoard.CreateGraphics();
-                int y = (col * 50) + 10;
-                int x = (row * 80) + 40;
+                int y = ((row * 50) + 10);
+                int x = ((col * 80) + 40);
                 bool win = false;
                 if (currentP.turnNumber == 1)
                 {
                     g.FillEllipse(p1Brush, x, y, 40, 40);
                     win = board.CheckWin(board, currentP);
-                    if (win == true)
+                    if (win)
                     {
-                        TopLevelState = States.Play;
-                        IfGameOverTransition();
+                        txtPlayerTurn.Text = "Winner: Player " + currentP.turnNumber;
                     }
-                    currentP.turnNumber = 2;
-                    currentP.piece = 'O';
-                    txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
+                    if (!win)
+                    {
+                        currentP.turnNumber = 2;
+                        currentP.piece = 'O';
+                        txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
+                    }
                 }
                 else if (currentP.turnNumber == 2)
                 {
                     g.FillEllipse(p2Brush, x, y, 40, 40);
                     win = board.CheckWin(board, currentP);
-                    if (win == true)
-                    {
-                        TopLevelState = States.Play;
-                        IfGameOverTransition();
+                    if (win) {
+                        txtPlayerTurn.Text = "Winner: Player " + currentP.turnNumber;
                     }
-                    currentP.turnNumber = 1;
-                    currentP.piece = 'X';
-                    txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
+                    if (!win)
+                    {
+                        currentP.turnNumber = 1;
+                        currentP.piece = 'X';
+                        txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
+                    }
                 }
 
                 TopLevelState = States.Play;
@@ -197,9 +206,10 @@ namespace ConnectFourWebApp
             Stream saveFile = File.Create(saveFileName);
             SoapFormatter serializer = new SoapFormatter();
             serializer.Serialize(saveFile, board);
+            serializer.Serialize(saveFile, currentP);
             saveFile.Close();
 
-            //allow start over
+                       //allow start over
             RestartGameTransition();
         }
 
@@ -231,17 +241,9 @@ namespace ConnectFourWebApp
             }
         }
 
-        public void StartGameBtnEvent()
+        public void StartNewGameBtnEvent()
         {
-            if (TopLevelState == States.SetUp && SetUpState == States.CouldRestore)
-            {
-                GoRestoreState();
-            }
-            else if (TopLevelState == States.SetUp &&
-                (SetUpState == States.Init || SetUpState == States.CouldRestore))
-            {
                 GoNewGameState();
-            }
         }
 
         public void PlaceEvent()
@@ -270,58 +272,7 @@ namespace ConnectFourWebApp
         /// </summary>
         private void RestartGameTransition()
         {
-            Graphics g;
-            SolidBrush pen = new SolidBrush(Color.FromArgb(250, 255, 255));
-            g = panelBoard.CreateGraphics();
-            g.FillEllipse(pen, 40, 10, 40, 40);
-            g.FillEllipse(pen, 40, 60, 40, 40);
-            g.FillEllipse(pen, 40, 110, 40, 40);
-            g.FillEllipse(pen, 40, 160, 40, 40);
-            g.FillEllipse(pen, 40, 210, 40, 40);
-            g.FillEllipse(pen, 40, 260, 40, 40);
-            g.FillEllipse(pen, 40, 310, 40, 40);
-            g.FillEllipse(pen, 120, 10, 40, 40);
-            g.FillEllipse(pen, 120, 60, 40, 40);
-            g.FillEllipse(pen, 120, 110, 40, 40);
-            g.FillEllipse(pen, 120, 160, 40, 40);
-            g.FillEllipse(pen, 120, 210, 40, 40);
-            g.FillEllipse(pen, 120, 260, 40, 40);
-            g.FillEllipse(pen, 120, 310, 40, 40);
-            g.FillEllipse(pen, 200, 10, 40, 40);
-            g.FillEllipse(pen, 200, 60, 40, 40);
-            g.FillEllipse(pen, 200, 110, 40, 40);
-            g.FillEllipse(pen, 200, 160, 40, 40);
-            g.FillEllipse(pen, 200, 210, 40, 40);
-            g.FillEllipse(pen, 200, 260, 40, 40);
-            g.FillEllipse(pen, 200, 310, 40, 40);
-            g.FillEllipse(pen, 280, 10, 40, 40);
-            g.FillEllipse(pen, 280, 60, 40, 40);
-            g.FillEllipse(pen, 280, 110, 40, 40);
-            g.FillEllipse(pen, 280, 160, 40, 40);
-            g.FillEllipse(pen, 280, 210, 40, 40);
-            g.FillEllipse(pen, 280, 260, 40, 40);
-            g.FillEllipse(pen, 280, 310, 40, 40);
-            g.FillEllipse(pen, 360, 10, 40, 40);
-            g.FillEllipse(pen, 360, 60, 40, 40);
-            g.FillEllipse(pen, 360, 110, 40, 40);
-            g.FillEllipse(pen, 360, 160, 40, 40);
-            g.FillEllipse(pen, 360, 210, 40, 40);
-            g.FillEllipse(pen, 360, 260, 40, 40);
-            g.FillEllipse(pen, 360, 310, 40, 40);
-            g.FillEllipse(pen, 440, 10, 40, 40);
-            g.FillEllipse(pen, 440, 60, 40, 40);
-            g.FillEllipse(pen, 440, 110, 40, 40);
-            g.FillEllipse(pen, 440, 160, 40, 40);
-            g.FillEllipse(pen, 440, 210, 40, 40);
-            g.FillEllipse(pen, 440, 260, 40, 40);
-            g.FillEllipse(pen, 440, 310, 40, 40);
-            g.FillEllipse(pen, 520, 10, 40, 40);
-            g.FillEllipse(pen, 520, 60, 40, 40);
-            g.FillEllipse(pen, 520, 110, 40, 40);
-            g.FillEllipse(pen, 520, 160, 40, 40);
-            g.FillEllipse(pen, 520, 210, 40, 40);
-            g.FillEllipse(pen, 520, 260, 40, 40);
-            g.FillEllipse(pen, 520, 310, 40, 40);
+            clearBoard();
             if (TopLevelState == States.Finish)
             {
                 GoSetupState();
@@ -345,5 +296,46 @@ namespace ConnectFourWebApp
                 GoGameOverState();
             }
         }
+
+        private void clearBoard()
+        {
+            Graphics g;
+            SolidBrush pen = new SolidBrush(Color.FromArgb(250, 255, 255));
+            g = panelBoard.CreateGraphics();
+            for (int i = 0; i < 7; i++)
+            {
+                for (int j = 0; j < 7; j++)
+                {
+                   int y = ((j * 50) + 10);
+                   int x = ((i * 80) + 40);
+                   g.FillEllipse(pen, x, y, 40, 40);
+                }
+            }
+        }
+
+        private void redrawBoard()
+        {
+            Graphics g;
+            SolidBrush pen = new SolidBrush(Color.FromArgb(250, 255, 255));
+            g = panelBoard.CreateGraphics();
+            for (int i = 0; i < 7; i++)
+            {
+                for (int j = 0; j < 7; j++)
+        
+                    if (board.Grid[i, j] == 'X')
+                    {
+                        int y = ((i * 50) + 10);
+                        int x = ((j * 80) + 40);
+                        g.FillEllipse(p1Brush, x, y, 40, 40);
+                    }
+                    else if (board.Grid[i, j] == 'O')
+                    {
+                        int y = ((i * 50) + 10);
+                        int x = ((j * 80) + 40);
+                        g.FillEllipse(p2Brush, x, y, 40, 40);
+                    }
+                }
+            }
+        }
     }
-}
+

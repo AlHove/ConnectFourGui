@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace ConnectFourWebApp
 {
+    [Serializable]
     public class Player
     {
         //public string color;

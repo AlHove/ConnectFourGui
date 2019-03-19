@@ -20,8 +20,6 @@ namespace ConnectFourWebApp
     {
         Graphics g;
         SolidBrush pen = new SolidBrush(Color.FromArgb(250, 255, 255));
-        int col = 1;
-        int row = 1;
         Controller ctrl;
 
         public Form1()
@@ -92,15 +90,6 @@ namespace ConnectFourWebApp
             g.FillEllipse(pen, 520, 310, 40, 40);
         }
 
-        private void rowUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            row = Convert.ToInt32(rowUpDown.Value);
-        }
-
-        private void columnUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            col = Convert.ToInt32(columnUpDown.Value);
-        }
         
         //Close form on exit
         private void btnExit_Click(object sender, EventArgs e)
@@ -120,9 +109,8 @@ namespace ConnectFourWebApp
 
         private void NewGameBtn_Click(object sender, EventArgs e)
         {
-            ctrl.StartGameBtnEvent();
+            ctrl.StartNewGameBtnEvent();
         }
-        // check if the piece is in the Board. If it isn't use then no
 
 
     }

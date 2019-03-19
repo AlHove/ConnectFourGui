@@ -11,6 +11,7 @@ using static ConnectFourWebApp.Player;
 
 namespace ConnectFourWebApp
 {
+    [Serializable]
     public class Board
     {
         // Instance Variables 
@@ -21,7 +22,7 @@ namespace ConnectFourWebApp
 
         public Board()
         {
-
+            this.SetBoard();
         }
 
         // Setter
