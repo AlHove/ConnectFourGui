@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Alyssa Hove and Katheryn Weeden
+// 3/19/19
+// GUI Prototype for Connect Four
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,6 +48,7 @@ namespace ConnectFourWebApp
 
         private TextBox txtPlayerTurn = null;
         private TextBox WinBox = null;
+        private TextBox txtInvalidLocation = null;
         private Button btnSave = null;
         private Button btnExit = null;
         private Label lblRow = null;
@@ -55,11 +60,12 @@ namespace ConnectFourWebApp
         /// <summary>
         /// Default constructor to grab GUI widgets to control
         /// </summary>
-        public Controller(Panel board, TextBox PlayerT, TextBox WinB, Button save, Button exit, Label row, Label col, NumericUpDown udRow, NumericUpDown udCol)
+        public Controller(Panel board, TextBox PlayerT, TextBox WinB, TextBox invalidLoc, Button save, Button exit, Label row, Label col, NumericUpDown udRow, NumericUpDown udCol)
         {
             panelBoard = board;
             txtPlayerTurn = PlayerT;
             WinBox = WinB;
+            txtInvalidLocation = invalidLoc;
             btnSave = save;
             btnExit = exit;
             lblRow = row;
@@ -91,8 +97,7 @@ namespace ConnectFourWebApp
         {
 
             SetUpState = States.Init;
-
-            IfSavedFileTransition();
+            GoNewGameState();
         }
 
         private void GoCouldRestoreState()
@@ -105,28 +110,39 @@ namespace ConnectFourWebApp
         {
             SetUpState = States.Restore;
 
+            //Clear anything on board currently before loading saved game
+            clearBoard();
+
+            //Read saved game and extract the board and current player then close it
             Stream saveFile = File.OpenRead(saveFileName);
             SoapFormatter deserializer = new SoapFormatter();
             board = (Board)(deserializer.Deserialize(saveFile));
             currentP = (Player)(deserializer.Deserialize(saveFile));
-
             saveFile.Close();
+
+            //Delete saved game after reading it's information
+            File.Delete(saveFileName);
+
             Console.WriteLine();
             System.Diagnostics.Debug.WriteLine("Hit Restore");
 
+            //Output current player from saved game
+            txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
+            txtInvalidLocation.Visible = false;
+
+            //Redraw board to reflect saved game
+            redrawBoard();
         }
 
         private void GoNewGameState()
         {
             SetUpState = States.StartGame;
             clearBoard();
-            if (File.Exists(saveFileName))
-            {
-                File.Delete(saveFileName);
-            }
             currentP = new Player();
             currentP.piece = 'X';
             currentP.turnNumber = 1;
+            columnUpDown.Value = 1;
+            rowUpDown.Value = 1;
             board = null;
             board = new Board();
             board.SetBoard();
@@ -146,6 +162,8 @@ namespace ConnectFourWebApp
             System.Diagnostics.Debug.WriteLine(row);
             System.Diagnostics.Debug.WriteLine(currentP.turnNumber);
             System.Diagnostics.Debug.WriteLine(valid);
+
+            txtInvalidLocation.Visible = false;
 
             if (valid == true)
             {
@@ -186,6 +204,9 @@ namespace ConnectFourWebApp
 
                 TopLevelState = States.Play;
                 IfGameOverTransition();
+            } else
+            {
+                txtInvalidLocation.Visible = true;
             }
         }
 
@@ -239,6 +260,7 @@ namespace ConnectFourWebApp
 
         public void SvRstBtnEvent()
         {
+            IfSavedFileTransition();
             if (TopLevelState == States.SetUp && SetUpState == States.CouldRestore)
             {
                 GoRestoreState();
@@ -290,7 +312,7 @@ namespace ConnectFourWebApp
         private void IfSavedFileTransition()
         {
             //if save file exists, move to next state
-            if (File.Exists(saveFileName) && SetUpState == States.Init)
+            if (File.Exists(saveFileName))
             {
                 GoCouldRestoreState();
             }

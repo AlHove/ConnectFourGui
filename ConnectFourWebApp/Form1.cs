@@ -1,6 +1,6 @@
 ﻿// Alyssa Hove and Katheryn Weeden
-// 2/25/19
-// GUI Prototype for Connect Four
+// 3/19/19
+// Game Form for Connect Four
 
 using System;
 using System.Collections.Generic;
@@ -16,19 +16,18 @@ using static ConnectFourWebApp.Player;
 
 namespace ConnectFourWebApp
 {
-    public partial class Form1 : Form
+    public partial class ConnectFour : Form
     {
         Graphics g;
         SolidBrush pen = new SolidBrush(Color.FromArgb(250, 255, 255));
         Controller ctrl;
 
-        public Form1()
+        public ConnectFour()
         {
             InitializeComponent();
             //gotta pass these widgets to the controller
-                ctrl = new Controller(panelBoard, txtPlayerTurn, WinBox, btnSave, btnExit, lblRow, 
+                ctrl = new Controller(panelBoard, txtPlayerTurn, WinBox, txtInvalidLocation, btnSave, btnExit, lblRow, 
                                       lblColumn, rowUpDown, columnUpDown);
-            
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -51,7 +50,6 @@ namespace ConnectFourWebApp
                 }
             }
         }
-
         
         //Close form on exit
         private void btnExit_Click(object sender, EventArgs e)
