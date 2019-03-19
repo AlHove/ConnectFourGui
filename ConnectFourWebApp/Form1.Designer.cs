@@ -43,6 +43,7 @@ namespace ConnectFourWebApp
             this.placeBtn = new System.Windows.Forms.Button();
             this.NewGamebtn = new System.Windows.Forms.Button();
             this.SaveRestoreBtn = new System.Windows.Forms.Button();
+            this.WinBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.rowUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.columnUpDown)).BeginInit();
             this.SuspendLayout();
@@ -54,7 +55,7 @@ namespace ConnectFourWebApp
             this.panelBoard.Name = "panelBoard";
             this.panelBoard.Size = new System.Drawing.Size(586, 365);
             this.panelBoard.TabIndex = 0;
-            this.panelBoard.Paint += new System.Windows.Forms.PaintEventHandler(this.panelBoard_drawBoard);
+            this.panelBoard.Paint += new System.Windows.Forms.PaintEventHandler(this.panelBoard_Paint);
             // 
             // btnSave
             // 
@@ -112,7 +113,6 @@ namespace ConnectFourWebApp
             0,
             0,
             0});
-      
             // 
             // lblRow
             // 
@@ -156,7 +156,6 @@ namespace ConnectFourWebApp
             0,
             0,
             0});
-           
             // 
             // placeBtn
             // 
@@ -191,11 +190,21 @@ namespace ConnectFourWebApp
             this.SaveRestoreBtn.UseVisualStyleBackColor = true;
             this.SaveRestoreBtn.Click += new System.EventHandler(this.SaveRestoreBtn_Click);
             // 
+            // WinBox
+            // 
+            this.WinBox.BackColor = System.Drawing.SystemColors.Control;
+            this.WinBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.WinBox.Location = new System.Drawing.Point(393, 13);
+            this.WinBox.Name = "WinBox";
+            this.WinBox.Size = new System.Drawing.Size(179, 13);
+            this.WinBox.TabIndex = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.WinBox);
             this.Controls.Add(this.SaveRestoreBtn);
             this.Controls.Add(this.NewGamebtn);
             this.Controls.Add(this.placeBtn);
@@ -209,6 +218,7 @@ namespace ConnectFourWebApp
             this.Controls.Add(this.panelBoard);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.rowUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.columnUpDown)).EndInit();
             this.ResumeLayout(false);
@@ -229,6 +239,7 @@ namespace ConnectFourWebApp
         private System.Windows.Forms.Button placeBtn;
         private System.Windows.Forms.Button NewGamebtn;
         private System.Windows.Forms.Button SaveRestoreBtn;
+        private System.Windows.Forms.TextBox WinBox;
     }
 }
 

@@ -43,6 +43,7 @@ namespace ConnectFourWebApp
         /// </summary>
 
         private TextBox txtPlayerTurn = null;
+        private TextBox WinBox = null;
         private Button btnSave = null;
         private Button btnExit = null;
         private Label lblRow = null;
@@ -54,10 +55,11 @@ namespace ConnectFourWebApp
         /// <summary>
         /// Default constructor to grab GUI widgets to control
         /// </summary>
-        public Controller(Panel board, TextBox PlayerT, Button save, Button exit, Label row, Label col, NumericUpDown udRow, NumericUpDown udCol)
+        public Controller(Panel board, TextBox PlayerT, TextBox WinB, Button save, Button exit, Label row, Label col, NumericUpDown udRow, NumericUpDown udCol)
         {
             panelBoard = board;
             txtPlayerTurn = PlayerT;
+            WinBox = WinB;
             btnSave = save;
             btnExit = exit;
             lblRow = row;
@@ -110,11 +112,13 @@ namespace ConnectFourWebApp
 
             saveFile.Close();
             Console.WriteLine();
-           
+            System.Diagnostics.Debug.WriteLine("Hit Restore");
+
         }
 
         private void GoNewGameState()
         {
+            SetUpState = States.StartGame;
             clearBoard();
             if (File.Exists(saveFileName))
             {
@@ -127,6 +131,7 @@ namespace ConnectFourWebApp
             board = new Board();
             board.SetBoard();
             txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
+            System.Diagnostics.Debug.WriteLine("hit");
         }
 
         private void GoPlayState()
@@ -192,9 +197,8 @@ namespace ConnectFourWebApp
         private void GoGameOverState()
         {
             FinishState = States.GameOver;
-            txtPlayerTurn.Text = "Winner: Player " + currentP.turnNumber;
+            System.Diagnostics.Debug.WriteLine("Game Over Hit");
             GoFinishState();
-
             RestartGameTransition();
         }
 
@@ -248,6 +252,10 @@ namespace ConnectFourWebApp
 
         public void PlaceEvent()
         {
+            System.Diagnostics.Debug.WriteLine("hit");
+            System.Diagnostics.Debug.WriteLine(TopLevelState);
+            System.Diagnostics.Debug.WriteLine(SetUpState);
+
             if (TopLevelState == States.SetUp &&
                 (SetUpState == States.Restore || SetUpState == States.StartGame)
                 || TopLevelState == States.Play)
@@ -293,6 +301,7 @@ namespace ConnectFourWebApp
         {
             if (board.CheckWin(board,currentP) && TopLevelState == States.Play)
             {
+                WinBox.Text = "Last Winner: Player " + currentP.turnNumber;
                 GoGameOverState();
             }
         }

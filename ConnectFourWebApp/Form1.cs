@@ -26,7 +26,7 @@ namespace ConnectFourWebApp
         {
             InitializeComponent();
             //gotta pass these widgets to the controller
-                ctrl = new Controller(panelBoard, txtPlayerTurn, btnSave, btnExit, lblRow, 
+                ctrl = new Controller(panelBoard, txtPlayerTurn, WinBox, btnSave, btnExit, lblRow, 
                                       lblColumn, rowUpDown, columnUpDown);
             
         }
@@ -36,58 +36,20 @@ namespace ConnectFourWebApp
             ctrl.SvBtnEvent();
         }
 
-        private void panelBoard_drawBoard(object sender, PaintEventArgs e)
+        private void panelBoard_Paint(object sender, PaintEventArgs e)
         {
+            Graphics g;
+            SolidBrush pen = new SolidBrush(Color.FromArgb(250, 255, 255));
             g = panelBoard.CreateGraphics();
-            g.FillEllipse(pen, 40, 10, 40, 40);
-            g.FillEllipse(pen, 40, 60, 40, 40);
-            g.FillEllipse(pen, 40, 110, 40, 40);
-            g.FillEllipse(pen, 40, 160, 40, 40);
-            g.FillEllipse(pen, 40, 210, 40, 40);
-            g.FillEllipse(pen, 40, 260, 40, 40);
-            g.FillEllipse(pen, 40, 310, 40, 40);
-            g.FillEllipse(pen, 120, 10, 40, 40);
-            g.FillEllipse(pen, 120, 60, 40, 40);
-            g.FillEllipse(pen, 120, 110, 40, 40);
-            g.FillEllipse(pen, 120, 160, 40, 40);
-            g.FillEllipse(pen, 120, 210, 40, 40);
-            g.FillEllipse(pen, 120, 260, 40, 40);
-            g.FillEllipse(pen, 120, 310, 40, 40);
-            g.FillEllipse(pen, 200, 10, 40, 40);
-            g.FillEllipse(pen, 200, 60, 40, 40);
-            g.FillEllipse(pen, 200, 110, 40, 40);
-            g.FillEllipse(pen, 200, 160, 40, 40);
-            g.FillEllipse(pen, 200, 210, 40, 40);
-            g.FillEllipse(pen, 200, 260, 40, 40);
-            g.FillEllipse(pen, 200, 310, 40, 40);
-            g.FillEllipse(pen, 280, 10, 40, 40);
-            g.FillEllipse(pen, 280, 60, 40, 40);
-            g.FillEllipse(pen, 280, 110, 40, 40);
-            g.FillEllipse(pen, 280, 160, 40, 40);
-            g.FillEllipse(pen, 280, 210, 40, 40);
-            g.FillEllipse(pen, 280, 260, 40, 40);
-            g.FillEllipse(pen, 280, 310, 40, 40);
-            g.FillEllipse(pen, 360, 10, 40, 40);
-            g.FillEllipse(pen, 360, 60, 40, 40);
-            g.FillEllipse(pen, 360, 110, 40, 40);
-            g.FillEllipse(pen, 360, 160, 40, 40);
-            g.FillEllipse(pen, 360, 210, 40, 40);
-            g.FillEllipse(pen, 360, 260, 40, 40);
-            g.FillEllipse(pen, 360, 310, 40, 40);
-            g.FillEllipse(pen, 440, 10, 40, 40);
-            g.FillEllipse(pen, 440, 60, 40, 40);
-            g.FillEllipse(pen, 440, 110, 40, 40);
-            g.FillEllipse(pen, 440, 160, 40, 40);
-            g.FillEllipse(pen, 440, 210, 40, 40);
-            g.FillEllipse(pen, 440, 260, 40, 40);
-            g.FillEllipse(pen, 440, 310, 40, 40);
-            g.FillEllipse(pen, 520, 10, 40, 40);
-            g.FillEllipse(pen, 520, 60, 40, 40);
-            g.FillEllipse(pen, 520, 110, 40, 40);
-            g.FillEllipse(pen, 520, 160, 40, 40);
-            g.FillEllipse(pen, 520, 210, 40, 40);
-            g.FillEllipse(pen, 520, 260, 40, 40);
-            g.FillEllipse(pen, 520, 310, 40, 40);
+            for (int i = 0; i < 7; i++)
+            {
+                for (int j = 0; j < 7; j++)
+                {
+                    int y = ((j * 50) + 10);
+                    int x = ((i * 80) + 40);
+                    g.FillEllipse(pen, x, y, 40, 40);
+                }
+            }
         }
 
         
@@ -112,6 +74,9 @@ namespace ConnectFourWebApp
             ctrl.StartNewGameBtnEvent();
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }
