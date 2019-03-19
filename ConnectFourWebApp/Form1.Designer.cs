@@ -235,7 +235,6 @@ namespace ConnectFourWebApp
             this.Controls.Add(this.panelBoard);
             this.Name = "ConnectFour";
             this.Text = "Connect Four - Hove and Weeden";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.rowUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.columnUpDown)).EndInit();
             this.ResumeLayout(false);

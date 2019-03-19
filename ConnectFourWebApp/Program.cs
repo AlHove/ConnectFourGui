@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// Alyssa Hove and Katheryn Weeden
+// 3/19/19
+// Begin the program for Connect Four
+
+using System;
 using System.Windows.Forms;
-using System.Runtime.Serialization.Formatters.Soap;
 
 namespace ConnectFourWebApp
 {

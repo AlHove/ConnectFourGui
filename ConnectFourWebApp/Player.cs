@@ -2,19 +2,16 @@
 // Started 2/1/19
 //Player class: Keeps track of Player Data
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConnectFourWebApp
 {
     [Serializable]
     public class Player
     {
-        //public string color;
+        //Turn 1 = Player 1 = Green Player
+        //Turn 2 = Player 2 = Purple Player
         public int turnNumber; 
-        public char piece; // Player Symbol
+        public char piece; //Player Symbol held in array
         public char PropPlayer
         {
             get

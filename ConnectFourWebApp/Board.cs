@@ -3,11 +3,6 @@
 // Board class: deals with validating spaces and checking for wins and losses
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static ConnectFourWebApp.Player;
 
 namespace ConnectFourWebApp
 {
@@ -140,40 +135,6 @@ namespace ConnectFourWebApp
 
             // If no wins yet, return win - initialized as false
             return win;
-        }
-
-        // Show current board
-        public void DisplayBoard()
-        {
-            Console.WriteLine("  1 2 3 4 5 6 7 ");
-
-            for (int i = 0; i < 7; i++)
-            {
-                Console.Write(i + 1);
-                for (int j = 0; j < 7; j++)
-                {
-                    Console.Write('|');
-                    Console.Write(this.Grid[i, j]);
-                }
-                Console.WriteLine('|');
-                Console.WriteLine("  ______________");
-            }
-        }
-
-        // Adds a piece to the board
-        public bool AddPiece(int row, int col, char c, Board b)
-        {
-            bool valid = false;
-            row = row - 1;
-            col = col - 1;
-            valid = ValidateLocation(b, row, col);
-
-            if (valid == true)
-            {
-                b.Grid[row, col] = c;
-                return true;
-            }
-            return false;
         }
     }
 }

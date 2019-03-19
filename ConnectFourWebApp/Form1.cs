@@ -3,16 +3,8 @@
 // Game Form for Connect Four
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static ConnectFourWebApp.Board;
-using static ConnectFourWebApp.Player;
 
 namespace ConnectFourWebApp
 {
@@ -30,15 +22,8 @@ namespace ConnectFourWebApp
                                       lblColumn, rowUpDown, columnUpDown);
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            ctrl.SvBtnEvent();
-        }
-
         private void panelBoard_Paint(object sender, PaintEventArgs e)
         {
-            Graphics g;
-            SolidBrush pen = new SolidBrush(Color.FromArgb(250, 255, 255));
             g = panelBoard.CreateGraphics();
             for (int i = 0; i < 7; i++)
             {
@@ -57,24 +42,28 @@ namespace ConnectFourWebApp
             this.Close();
         }
 
+        //Save the current game
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            ctrl.SvBtnEvent();
+        }
+
+        //Initiate place a piece
         private void placeBtn_Click(object sender, EventArgs e)
         {
             ctrl.PlaceEvent();
         }
 
+        //Restore a saved game
         private void SaveRestoreBtn_Click(object sender, EventArgs e)
         {
             ctrl.SvRstBtnEvent();
         }
 
+        //Initiate a new game
         private void NewGameBtn_Click(object sender, EventArgs e)
         {
             ctrl.StartNewGameBtnEvent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

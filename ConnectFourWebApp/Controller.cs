@@ -3,16 +3,10 @@
 // GUI Prototype for Connect Four
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Soap;
 using System.Windows.Forms;
-using static ConnectFourWebApp.Game;
-using static ConnectFourWebApp.Board;
-using static ConnectFourWebApp.Player;
 
 namespace ConnectFourWebApp
 {
@@ -42,10 +36,10 @@ namespace ConnectFourWebApp
         private Player currentP = null;
         private SolidBrush p1Brush = new SolidBrush(Color.FromArgb(65, 102, 0));
         private SolidBrush p2Brush = new SolidBrush(Color.FromArgb(201, 131, 220));
+
         /// <summary>
         /// GUI elements we want to control
         /// </summary>
-
         private TextBox txtPlayerTurn = null;
         private TextBox WinBox = null;
         private TextBox txtInvalidLocation = null;
@@ -103,7 +97,6 @@ namespace ConnectFourWebApp
         private void GoCouldRestoreState()
         {
             SetUpState = States.CouldRestore;
-            GoRestoreState();
         }
 
         private void GoRestoreState()
@@ -123,6 +116,7 @@ namespace ConnectFourWebApp
             //Delete saved game after reading it's information
             File.Delete(saveFileName);
 
+            //Testing purposes
             Console.WriteLine();
             System.Diagnostics.Debug.WriteLine("Hit Restore");
 
@@ -137,7 +131,11 @@ namespace ConnectFourWebApp
         private void GoNewGameState()
         {
             SetUpState = States.StartGame;
+
+            //Clear anything on board before starting a new game
             clearBoard();
+
+            //Reset widgets and info to start a new game
             currentP = new Player();
             currentP.piece = 'X';
             currentP.turnNumber = 1;
@@ -146,17 +144,24 @@ namespace ConnectFourWebApp
             board = null;
             board = new Board();
             board.SetBoard();
+            txtInvalidLocation.Visible = false;
             txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
+
+            //Testing purposes
             System.Diagnostics.Debug.WriteLine("hit");
         }
 
         private void GoPlayState()
         {
+            TopLevelState = States.Play;
+
             bool valid = false;
             Graphics g;
             int row = Convert.ToInt32(rowUpDown.Value) - 1;
             int col = Convert.ToInt32(columnUpDown.Value) - 1;
             char c = currentP.piece;
+
+            //Validate if selected location is available
             valid = board.ValidateLocation(board, row, col);
             System.Diagnostics.Debug.WriteLine(col);
             System.Diagnostics.Debug.WriteLine(row);
@@ -165,6 +170,8 @@ namespace ConnectFourWebApp
 
             txtInvalidLocation.Visible = false;
 
+            //If selected location is valid fill circle in with corresponding player color
+            //Player 1 is green (p1Brush) and Player 2 is purple (p2Brush)
             if (valid == true)
             {
                 board.Grid[row, col] = c;
@@ -202,9 +209,10 @@ namespace ConnectFourWebApp
                     }
                 }
 
-                TopLevelState = States.Play;
+                //Check for a win
                 IfGameOverTransition();
-            } else
+
+            } else //if the selection was invalid alert the user with a textbox
             {
                 txtInvalidLocation.Visible = true;
             }
@@ -218,8 +226,11 @@ namespace ConnectFourWebApp
         private void GoGameOverState()
         {
             FinishState = States.GameOver;
-            System.Diagnostics.Debug.WriteLine("Game Over Hit");
             GoFinishState();
+
+            //Testing purposes
+            System.Diagnostics.Debug.WriteLine("Game Over Hit");
+
             RestartGameTransition();
         }
 
@@ -228,13 +239,14 @@ namespace ConnectFourWebApp
             FinishState = States.SaveGame;
             GoFinishState();
 
+            //Create an XML file to save current state of game
             Stream saveFile = File.Create(saveFileName);
             SoapFormatter serializer = new SoapFormatter();
             serializer.Serialize(saveFile, board);
             serializer.Serialize(saveFile, currentP);
             saveFile.Close();
 
-                       //allow start over
+            //Allow start over
             RestartGameTransition();
         }
 
@@ -249,7 +261,6 @@ namespace ConnectFourWebApp
         /// </summary>
         public void SvBtnEvent()
         {
-
            if (TopLevelState == States.Play ||
                 TopLevelState == States.SetUp && SetUpState == States.StartGame)
             {
@@ -258,6 +269,7 @@ namespace ConnectFourWebApp
             }
         }
 
+        //Restore a saved game
         public void SvRstBtnEvent()
         {
             IfSavedFileTransition();
@@ -274,6 +286,7 @@ namespace ConnectFourWebApp
 
         public void PlaceEvent()
         {
+            //Testing purposes
             System.Diagnostics.Debug.WriteLine("hit");
             System.Diagnostics.Debug.WriteLine(TopLevelState);
             System.Diagnostics.Debug.WriteLine(SetUpState);
@@ -284,11 +297,6 @@ namespace ConnectFourWebApp
             {
                 GoPlayState();
             }
-        }
-
-        public void ExitEvent()
-        {
-
         }
 
         /////////////////// NON - EVENT TRANSITIONS ////////////////////////
@@ -328,6 +336,7 @@ namespace ConnectFourWebApp
             }
         }
 
+        //Reset to a clean board
         private void clearBoard()
         {
             Graphics g;
@@ -344,6 +353,7 @@ namespace ConnectFourWebApp
             }
         }
 
+        //Redraw the board and fill in for each player
         private void redrawBoard()
         {
             Graphics g;
