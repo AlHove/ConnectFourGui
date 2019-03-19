@@ -1,6 +1,6 @@
 ﻿// Alyssa Hove and Katheryn Weeden
-// 2/25/19
-// GUI Prototype for Connect Four
+// 3/19/19
+// Main Program for Connect Four
 
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,7 @@ namespace ConnectFourWebApp
         //Open form for new game, hide current form
         private void btnNewGame_Click(object sender, EventArgs e)
         {
-            Form1 newGame = new Form1();
+            ConnectFour newGame = new ConnectFour();
             newGame.Show();
             this.Hide();
         }
@@ -32,7 +32,7 @@ namespace ConnectFourWebApp
         //Open form for saved game, hide current form
         private void btnSavedGame_Click(object sender, EventArgs e)
         {
-            Form1 savedGame = new Form1();
+            ConnectFour savedGame = new ConnectFour();
             savedGame.Show();
             this.Hide();
         }

@@ -4,7 +4,7 @@
 
 namespace ConnectFourWebApp
 {
-    partial class Form1
+    partial class ConnectFour
     {
         /// <summary>
         /// Required designer variable.
@@ -44,6 +44,7 @@ namespace ConnectFourWebApp
             this.NewGamebtn = new System.Windows.Forms.Button();
             this.SaveRestoreBtn = new System.Windows.Forms.Button();
             this.WinBox = new System.Windows.Forms.TextBox();
+            this.txtInvalidLocation = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.rowUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.columnUpDown)).BeginInit();
             this.SuspendLayout();
@@ -76,7 +77,7 @@ namespace ConnectFourWebApp
             this.txtPlayerTurn.ForeColor = System.Drawing.Color.Black;
             this.txtPlayerTurn.Location = new System.Drawing.Point(100, 12);
             this.txtPlayerTurn.Name = "txtPlayerTurn";
-            this.txtPlayerTurn.Size = new System.Drawing.Size(204, 22);
+            this.txtPlayerTurn.Size = new System.Drawing.Size(198, 22);
             this.txtPlayerTurn.TabIndex = 0;
             this.txtPlayerTurn.Text = "Turn: Player 1";
             // 
@@ -194,16 +195,32 @@ namespace ConnectFourWebApp
             // 
             this.WinBox.BackColor = System.Drawing.SystemColors.Control;
             this.WinBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.WinBox.Location = new System.Drawing.Point(393, 13);
+            this.WinBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.WinBox.Location = new System.Drawing.Point(338, 11);
             this.WinBox.Name = "WinBox";
-            this.WinBox.Size = new System.Drawing.Size(179, 13);
+            this.WinBox.Size = new System.Drawing.Size(259, 22);
             this.WinBox.TabIndex = 10;
             // 
-            // Form1
+            // txtInvalidLocation
+            // 
+            this.txtInvalidLocation.BackColor = System.Drawing.SystemColors.Control;
+            this.txtInvalidLocation.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtInvalidLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txtInvalidLocation.Location = new System.Drawing.Point(100, 40);
+            this.txtInvalidLocation.Margin = new System.Windows.Forms.Padding(5);
+            this.txtInvalidLocation.Multiline = true;
+            this.txtInvalidLocation.Name = "txtInvalidLocation";
+            this.txtInvalidLocation.Size = new System.Drawing.Size(198, 20);
+            this.txtInvalidLocation.TabIndex = 11;
+            this.txtInvalidLocation.Text = "Invalid Location. Try Again.";
+            this.txtInvalidLocation.Visible = false;
+            // 
+            // ConnectFour
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.txtInvalidLocation);
             this.Controls.Add(this.WinBox);
             this.Controls.Add(this.SaveRestoreBtn);
             this.Controls.Add(this.NewGamebtn);
@@ -216,8 +233,8 @@ namespace ConnectFourWebApp
             this.Controls.Add(this.txtPlayerTurn);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.panelBoard);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "ConnectFour";
+            this.Text = "Connect Four - Hove and Weeden";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.rowUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.columnUpDown)).EndInit();
@@ -240,6 +257,7 @@ namespace ConnectFourWebApp
         private System.Windows.Forms.Button NewGamebtn;
         private System.Windows.Forms.Button SaveRestoreBtn;
         private System.Windows.Forms.TextBox WinBox;
+        private System.Windows.Forms.TextBox txtInvalidLocation;
     }
 }
 
