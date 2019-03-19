@@ -20,9 +20,6 @@ namespace ConnectFourWebApp
     {
         Graphics g;
         SolidBrush pen = new SolidBrush(Color.FromArgb(250, 255, 255));
-        SolidBrush p1Brush = new SolidBrush(Color.FromArgb(65, 102, 0));
-        SolidBrush p2Brush = new SolidBrush(Color.FromArgb(201, 131, 220));
-        int playerTurn = 1;
         int col = 1;
         int row = 1;
         Controller ctrl;
@@ -33,11 +30,12 @@ namespace ConnectFourWebApp
             //gotta pass these widgets to the controller
                 ctrl = new Controller(panelBoard, txtPlayerTurn, btnSave, btnExit, lblRow, 
                                       lblColumn, rowUpDown, columnUpDown);
+            
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            ctrl.SvRstBtnEvent();
+            ctrl.SvBtnEvent();
         }
 
         private void panelBoard_drawBoard(object sender, PaintEventArgs e)
@@ -113,23 +111,19 @@ namespace ConnectFourWebApp
         private void placeBtn_Click(object sender, EventArgs e)
         {
             ctrl.PlaceEvent();
-            g = panelBoard.CreateGraphics();
-            int y = ((col - 1) * 50) + 10;
-            int x = ((row - 1) * 80) + 40;
-            if (playerTurn == 1)
-            {
-                g.FillEllipse(p1Brush, x, y, 40, 40);
-                playerTurn = 2;
-                txtPlayerTurn.Text = "Turn: Player " + playerTurn;
-            }
-            else if (playerTurn == 2)
-            {
-                g.FillEllipse(p2Brush, x, y, 40, 40);
-                playerTurn = 1;
-                txtPlayerTurn.Text = "Turn: Player " + playerTurn;
-            }
-            // check if the piece is in the Board. If it isn't use then no
-
         }
+
+        private void SaveRestoreBtn_Click(object sender, EventArgs e)
+        {
+            ctrl.SvRstBtnEvent();
+        }
+
+        private void NewGameBtn_Click(object sender, EventArgs e)
+        {
+            ctrl.StartGameBtnEvent();
+        }
+        // check if the piece is in the Board. If it isn't use then no
+
+
     }
 }

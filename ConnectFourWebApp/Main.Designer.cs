@@ -69,7 +69,6 @@ namespace ConnectFourWebApp
             this.lblConnectFour.Size = new System.Drawing.Size(316, 55);
             this.lblConnectFour.TabIndex = 2;
             this.lblConnectFour.Text = "Connect Four";
-            this.lblConnectFour.Click += new System.EventHandler(this.label1_Click);
             // 
             // Main
             // 

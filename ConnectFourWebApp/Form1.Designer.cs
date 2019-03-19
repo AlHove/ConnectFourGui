@@ -41,6 +41,8 @@ namespace ConnectFourWebApp
             this.lblColumn = new System.Windows.Forms.Label();
             this.columnUpDown = new System.Windows.Forms.NumericUpDown();
             this.placeBtn = new System.Windows.Forms.Button();
+            this.NewGamebtn = new System.Windows.Forms.Button();
+            this.SaveRestoreBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.rowUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.columnUpDown)).BeginInit();
             this.SuspendLayout();
@@ -167,11 +169,35 @@ namespace ConnectFourWebApp
             this.placeBtn.UseVisualStyleBackColor = true;
             this.placeBtn.Click += new System.EventHandler(this.placeBtn_Click);
             // 
+            // NewGamebtn
+            // 
+            this.NewGamebtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.NewGamebtn.Location = new System.Drawing.Point(12, 73);
+            this.NewGamebtn.Name = "NewGamebtn";
+            this.NewGamebtn.Size = new System.Drawing.Size(75, 52);
+            this.NewGamebtn.TabIndex = 8;
+            this.NewGamebtn.Text = "New Game";
+            this.NewGamebtn.UseVisualStyleBackColor = true;
+            this.NewGamebtn.Click += new System.EventHandler(this.NewGameBtn_Click);
+            // 
+            // SaveRestoreBtn
+            // 
+            this.SaveRestoreBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.SaveRestoreBtn.Location = new System.Drawing.Point(12, 152);
+            this.SaveRestoreBtn.Name = "SaveRestoreBtn";
+            this.SaveRestoreBtn.Size = new System.Drawing.Size(75, 52);
+            this.SaveRestoreBtn.TabIndex = 9;
+            this.SaveRestoreBtn.Text = "Load Game";
+            this.SaveRestoreBtn.UseVisualStyleBackColor = true;
+            this.SaveRestoreBtn.Click += new System.EventHandler(this.SaveRestoreBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.SaveRestoreBtn);
+            this.Controls.Add(this.NewGamebtn);
             this.Controls.Add(this.placeBtn);
             this.Controls.Add(this.lblColumn);
             this.Controls.Add(this.columnUpDown);
@@ -201,6 +227,8 @@ namespace ConnectFourWebApp
         private System.Windows.Forms.Label lblColumn;
         private System.Windows.Forms.NumericUpDown columnUpDown;
         private System.Windows.Forms.Button placeBtn;
+        private System.Windows.Forms.Button NewGamebtn;
+        private System.Windows.Forms.Button SaveRestoreBtn;
     }
 }
 

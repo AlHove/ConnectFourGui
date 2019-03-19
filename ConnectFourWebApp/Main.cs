@@ -21,11 +21,6 @@ namespace ConnectFourWebApp
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         //Open form for new game, hide current form
         private void btnNewGame_Click(object sender, EventArgs e)
         {

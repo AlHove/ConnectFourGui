@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Soap;
 using System.Windows.Forms;
@@ -35,9 +36,10 @@ namespace ConnectFourWebApp
         /// <summary>
         /// Model interface elements
         /// </summary>
-        private Game game = null;
         private Board board = null;
         private Player currentP = null;
+        private SolidBrush p1Brush = new SolidBrush(Color.FromArgb(65, 102, 0));
+        private SolidBrush p2Brush = new SolidBrush(Color.FromArgb(201, 131, 220));
         /// <summary>
         /// GUI elements we want to control
         /// </summary>
@@ -96,6 +98,7 @@ namespace ConnectFourWebApp
         private void GoCouldRestoreState()
         {
             SetUpState = States.CouldRestore;
+            GoRestoreState();
         }
 
         private void GoRestoreState()
@@ -111,27 +114,65 @@ namespace ConnectFourWebApp
         }
 
         private void GoNewGameState()
-        { 
-      
-
+        {
+            currentP = new Player();
+            currentP.piece = 'X';
+            currentP.turnNumber = 1;
+            board = new Board();
+            board.SetBoard();
+            if (File.Exists(saveFileName))
+            {
+                File.Delete(saveFileName);
+            }
         }
 
         private void GoPlayState()
         {
             bool valid = false;
-            int row = Convert.ToInt32(rowUpDown.Value);
-            int col = Convert.ToInt32(columnUpDown.Value);
+            Graphics g;
+            int row = Convert.ToInt32(rowUpDown.Value) - 1;
+            int col = Convert.ToInt32(columnUpDown.Value) - 1;
             char c = currentP.piece;
+            int playerTurn = currentP.piece;
             valid = board.ValidateLocation(board, row, col);
 
             if (valid == true)
             {
                 board.Grid[row, col] = c;
-  
+                g = panelBoard.CreateGraphics();
+                int y = (col * 50) + 10;
+                int x = (row * 80) + 40;
+                bool win = false;
+                if (currentP.turnNumber == 1)
+                {
+                    g.FillEllipse(p1Brush, x, y, 40, 40);
+                    win = board.CheckWin(board, currentP);
+                    if (win == true)
+                    {
+                        TopLevelState = States.Play;
+                        IfGameOverTransition();
+                    }
+                    currentP.turnNumber = 2;
+                    currentP.piece = 'O';
+                    txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
+                }
+                else if (currentP.turnNumber == 2)
+                {
+                    g.FillEllipse(p2Brush, x, y, 40, 40);
+                    win = board.CheckWin(board, currentP);
+                    if (win == true)
+                    {
+                        TopLevelState = States.Play;
+                        IfGameOverTransition();
+                    }
+                    currentP.turnNumber = 1;
+                    currentP.piece = 'X';
+                    txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
+                }
+
+                TopLevelState = States.Play;
+                IfGameOverTransition();
             }
-       
-        TopLevelState = States.Play;
-            IfGameOverTransition();
         }
 
         private void GoFinishState()
@@ -142,6 +183,7 @@ namespace ConnectFourWebApp
         private void GoGameOverState()
         {
             FinishState = States.GameOver;
+            txtPlayerTurn.Text = "Winner: Player " + currentP.turnNumber;
             GoFinishState();
 
             RestartGameTransition();
@@ -154,7 +196,7 @@ namespace ConnectFourWebApp
 
             Stream saveFile = File.Create(saveFileName);
             SoapFormatter serializer = new SoapFormatter();
-            serializer.Serialize(saveFile, game);
+            serializer.Serialize(saveFile, board);
             saveFile.Close();
 
             //allow start over
@@ -170,8 +212,9 @@ namespace ConnectFourWebApp
         /// 
         /// Illegal state/event combos are ignored
         /// </summary>
-        public void SvRstBtnEvent()
+        public void SvBtnEvent()
         {
+
            if (TopLevelState == States.Play ||
                 TopLevelState == States.SetUp && SetUpState == States.StartGame)
             {
@@ -180,9 +223,21 @@ namespace ConnectFourWebApp
             }
         }
 
+        public void SvRstBtnEvent()
+        {
+            if (TopLevelState == States.SetUp && SetUpState == States.CouldRestore)
+            {
+                GoRestoreState();
+            }
+        }
+
         public void StartGameBtnEvent()
         {
-            if (TopLevelState == States.SetUp &&
+            if (TopLevelState == States.SetUp && SetUpState == States.CouldRestore)
+            {
+                GoRestoreState();
+            }
+            else if (TopLevelState == States.SetUp &&
                 (SetUpState == States.Init || SetUpState == States.CouldRestore))
             {
                 GoNewGameState();
@@ -215,6 +270,58 @@ namespace ConnectFourWebApp
         /// </summary>
         private void RestartGameTransition()
         {
+            Graphics g;
+            SolidBrush pen = new SolidBrush(Color.FromArgb(250, 255, 255));
+            g = panelBoard.CreateGraphics();
+            g.FillEllipse(pen, 40, 10, 40, 40);
+            g.FillEllipse(pen, 40, 60, 40, 40);
+            g.FillEllipse(pen, 40, 110, 40, 40);
+            g.FillEllipse(pen, 40, 160, 40, 40);
+            g.FillEllipse(pen, 40, 210, 40, 40);
+            g.FillEllipse(pen, 40, 260, 40, 40);
+            g.FillEllipse(pen, 40, 310, 40, 40);
+            g.FillEllipse(pen, 120, 10, 40, 40);
+            g.FillEllipse(pen, 120, 60, 40, 40);
+            g.FillEllipse(pen, 120, 110, 40, 40);
+            g.FillEllipse(pen, 120, 160, 40, 40);
+            g.FillEllipse(pen, 120, 210, 40, 40);
+            g.FillEllipse(pen, 120, 260, 40, 40);
+            g.FillEllipse(pen, 120, 310, 40, 40);
+            g.FillEllipse(pen, 200, 10, 40, 40);
+            g.FillEllipse(pen, 200, 60, 40, 40);
+            g.FillEllipse(pen, 200, 110, 40, 40);
+            g.FillEllipse(pen, 200, 160, 40, 40);
+            g.FillEllipse(pen, 200, 210, 40, 40);
+            g.FillEllipse(pen, 200, 260, 40, 40);
+            g.FillEllipse(pen, 200, 310, 40, 40);
+            g.FillEllipse(pen, 280, 10, 40, 40);
+            g.FillEllipse(pen, 280, 60, 40, 40);
+            g.FillEllipse(pen, 280, 110, 40, 40);
+            g.FillEllipse(pen, 280, 160, 40, 40);
+            g.FillEllipse(pen, 280, 210, 40, 40);
+            g.FillEllipse(pen, 280, 260, 40, 40);
+            g.FillEllipse(pen, 280, 310, 40, 40);
+            g.FillEllipse(pen, 360, 10, 40, 40);
+            g.FillEllipse(pen, 360, 60, 40, 40);
+            g.FillEllipse(pen, 360, 110, 40, 40);
+            g.FillEllipse(pen, 360, 160, 40, 40);
+            g.FillEllipse(pen, 360, 210, 40, 40);
+            g.FillEllipse(pen, 360, 260, 40, 40);
+            g.FillEllipse(pen, 360, 310, 40, 40);
+            g.FillEllipse(pen, 440, 10, 40, 40);
+            g.FillEllipse(pen, 440, 60, 40, 40);
+            g.FillEllipse(pen, 440, 110, 40, 40);
+            g.FillEllipse(pen, 440, 160, 40, 40);
+            g.FillEllipse(pen, 440, 210, 40, 40);
+            g.FillEllipse(pen, 440, 260, 40, 40);
+            g.FillEllipse(pen, 440, 310, 40, 40);
+            g.FillEllipse(pen, 520, 10, 40, 40);
+            g.FillEllipse(pen, 520, 60, 40, 40);
+            g.FillEllipse(pen, 520, 110, 40, 40);
+            g.FillEllipse(pen, 520, 160, 40, 40);
+            g.FillEllipse(pen, 520, 210, 40, 40);
+            g.FillEllipse(pen, 520, 260, 40, 40);
+            g.FillEllipse(pen, 520, 310, 40, 40);
             if (TopLevelState == States.Finish)
             {
                 GoSetupState();
@@ -228,6 +335,7 @@ namespace ConnectFourWebApp
             {
                 GoCouldRestoreState();
             }
+            else GoNewGameState();
         }
 
         private void IfGameOverTransition()
