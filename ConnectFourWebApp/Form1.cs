@@ -26,8 +26,6 @@ namespace ConnectFourWebApp
         int col = 1;
         int row = 1;
         Controller ctrl;
-        Game game = null;
-        Board b;
 
         public Form1()
         {
@@ -37,17 +35,10 @@ namespace ConnectFourWebApp
                                       lblColumn, rowUpDown, columnUpDown);
         }
 
-        private void panelBoard_Paint(object sender, PaintEventArgs e)
-        {
-           
-
-        }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
-
+            ctrl.SvRstBtnEvent();
         }
-
 
         private void panelBoard_drawBoard(object sender, PaintEventArgs e)
         {
@@ -121,6 +112,7 @@ namespace ConnectFourWebApp
 
         private void placeBtn_Click(object sender, EventArgs e)
         {
+            ctrl.PlaceEvent();
             g = panelBoard.CreateGraphics();
             int y = ((col - 1) * 50) + 10;
             int x = ((row - 1) * 80) + 40;
@@ -128,10 +120,13 @@ namespace ConnectFourWebApp
             {
                 g.FillEllipse(p1Brush, x, y, 40, 40);
                 playerTurn = 2;
+                txtPlayerTurn.Text = "Turn: Player " + playerTurn;
             }
             else if (playerTurn == 2)
             {
                 g.FillEllipse(p2Brush, x, y, 40, 40);
+                playerTurn = 1;
+                txtPlayerTurn.Text = "Turn: Player " + playerTurn;
             }
             // check if the piece is in the Board. If it isn't use then no
 

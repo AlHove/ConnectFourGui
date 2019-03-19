@@ -75,7 +75,7 @@ namespace ConnectFourWebApp
             this.txtPlayerTurn.Name = "txtPlayerTurn";
             this.txtPlayerTurn.Size = new System.Drawing.Size(204, 22);
             this.txtPlayerTurn.TabIndex = 0;
-            this.txtPlayerTurn.Text = "Player 1\'s turn";
+            this.txtPlayerTurn.Text = "Turn: Player 1";
             // 
             // btnExit
             // 

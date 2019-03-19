@@ -16,7 +16,7 @@ namespace ConnectFourWebApp
         // Instance Variables 
         public int row;
         public int col;
-        char[,] Grid = new char[7, 7];
+        public char[,] Grid = new char[7, 7];
 
 
         public Board()

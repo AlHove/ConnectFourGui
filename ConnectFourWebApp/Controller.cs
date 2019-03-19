@@ -118,7 +118,19 @@ namespace ConnectFourWebApp
 
         private void GoPlayState()
         {
-            TopLevelState = States.Play;
+            bool valid = false;
+            int row = Convert.ToInt32(rowUpDown.Value);
+            int col = Convert.ToInt32(columnUpDown.Value);
+            char c = currentP.piece;
+            valid = board.ValidateLocation(board, row, col);
+
+            if (valid == true)
+            {
+                board.Grid[row, col] = c;
+  
+            }
+       
+        TopLevelState = States.Play;
             IfGameOverTransition();
         }
 
@@ -160,11 +172,7 @@ namespace ConnectFourWebApp
         /// </summary>
         public void SvRstBtnEvent()
         {
-            if (TopLevelState == States.SetUp && SetUpState == States.CouldRestore)
-            {
-                GoRestoreState();
-            }
-            else if (TopLevelState == States.Play ||
+           if (TopLevelState == States.Play ||
                 TopLevelState == States.SetUp && SetUpState == States.StartGame)
             {
                 GoFinishState();
@@ -181,7 +189,7 @@ namespace ConnectFourWebApp
             }
         }
 
-        public void GuessEvent()
+        public void PlaceEvent()
         {
             if (TopLevelState == States.SetUp &&
                 (SetUpState == States.Restore || SetUpState == States.StartGame)
@@ -228,15 +236,6 @@ namespace ConnectFourWebApp
             {
                 GoGameOverState();
             }
-        }
-
-        /// <summary>
-        /// general update of display
-        /// </summary>
-        /// <param name="msg"></param>
-        private void UpdateGameDisplay()
-        {
-       
         }
     }
 }
