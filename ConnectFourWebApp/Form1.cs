@@ -19,7 +19,7 @@ namespace ConnectFourWebApp
             InitializeComponent();
             //gotta pass these widgets to the controller
                 ctrl = new Controller(panelBoard, txtPlayerTurn, WinBox, txtInvalidLocation, btnSave, btnExit, lblRow, 
-                                      lblColumn, rowUpDown, columnUpDown);
+                                      lblColumn, rowUpDown, columnUpDown, timerTurns, txtTimer);
         }
 
         private void panelBoard_Paint(object sender, PaintEventArgs e)
@@ -64,6 +64,11 @@ namespace ConnectFourWebApp
         private void NewGameBtn_Click(object sender, EventArgs e)
         {
             ctrl.StartNewGameBtnEvent();
+        }
+
+        private void timerTurns_Tick(object sender, EventArgs e)
+        {
+
         }
     }
 }

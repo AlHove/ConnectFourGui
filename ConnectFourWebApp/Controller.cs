@@ -6,6 +6,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Soap;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ConnectFourWebApp
@@ -50,11 +51,15 @@ namespace ConnectFourWebApp
         private Panel panelBoard = null;
         private NumericUpDown rowUpDown = null;
         private NumericUpDown columnUpDown = null;
+        private Timer timerTurns = null;
+        private TextBox txtTimer = null;
 
         /// <summary>
         /// Default constructor to grab GUI widgets to control
         /// </summary>
-        public Controller(Panel board, TextBox PlayerT, TextBox WinB, TextBox invalidLoc, Button save, Button exit, Label row, Label col, NumericUpDown udRow, NumericUpDown udCol)
+        public Controller(Panel board, TextBox PlayerT, TextBox WinB, TextBox invalidLoc,
+            Button save, Button exit, Label row, Label col, NumericUpDown udRow, NumericUpDown udCol,
+            Timer timerT, TextBox txtTime)
         {
             panelBoard = board;
             txtPlayerTurn = PlayerT;
@@ -66,6 +71,8 @@ namespace ConnectFourWebApp
             lblCol = col;
             rowUpDown = udRow;
             columnUpDown = udCol;
+            timerTurns = timerT;
+            txtTimer = txtTime;
             //enter initial state
             GoSetupState();
         }
@@ -124,6 +131,12 @@ namespace ConnectFourWebApp
             txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
             txtInvalidLocation.Visible = false;
 
+            timerTurns.Enabled = true;
+            System.Diagnostics.Debug.WriteLine("Timer Enabled");
+
+            //When timer runs out of time go to timer event
+            timerTurns.Tick += new EventHandler(TimerTurns_Tick);
+
             //Redraw board to reflect saved game
             redrawBoard();
         }
@@ -147,10 +160,32 @@ namespace ConnectFourWebApp
             txtInvalidLocation.Visible = false;
             txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
 
+            timerTurns.Enabled = true;
+            System.Diagnostics.Debug.WriteLine("Timer Enabled");
+
+            //When timer runs out of time go to timer event
+            timerTurns.Tick += new EventHandler(TimerTurns_Tick); 
+
+
             //Testing purposes
             System.Diagnostics.Debug.WriteLine("hit");
         }
 
+        private void TimerTurns_Tick(object Sender, EventArgs e)
+        {
+            txtTimer.Visible = true;
+            txtTimer.Text = "Time is up for Player " + currentP.turnNumber;
+
+            if (currentP.turnNumber == 1)
+            {
+                currentP.turnNumber = 2;
+            } else
+            {
+                currentP.turnNumber = 1;
+            }
+            txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
+        }
+        
         private void GoPlayState()
         {
             TopLevelState = States.Play;
@@ -174,6 +209,11 @@ namespace ConnectFourWebApp
             //Player 1 is green (p1Brush) and Player 2 is purple (p2Brush)
             if (valid == true)
             {
+                //Stop the timer and reset interval to 25000 seconds
+                timerTurns.Enabled = false;
+                timerTurns.Interval = 5000;
+                txtTimer.Text = "";
+
                 board.Grid[row, col] = c;
                 g = panelBoard.CreateGraphics();
                 int y = ((row * 50) + 10);
@@ -192,6 +232,9 @@ namespace ConnectFourWebApp
                         currentP.turnNumber = 2;
                         currentP.piece = 'O';
                         txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
+
+                        timerTurns.Enabled = true;
+                        System.Diagnostics.Debug.WriteLine("Timer Enabled");
                     }
                 }
                 else if (currentP.turnNumber == 2)
@@ -206,15 +249,24 @@ namespace ConnectFourWebApp
                         currentP.turnNumber = 1;
                         currentP.piece = 'X';
                         txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
+
+                        timerTurns.Enabled = true;
+                        System.Diagnostics.Debug.WriteLine("Timer Enabled");
                     }
                 }
 
                 //Check for a win
                 IfGameOverTransition();
 
+                //When timer runs out of time go to timer event
+                timerTurns.Tick += new EventHandler(TimerTurns_Tick);
+
             } else //if the selection was invalid alert the user with a textbox
             {
                 txtInvalidLocation.Visible = true;
+
+                //When timer runs out of time go to timer event
+                timerTurns.Tick += new EventHandler(TimerTurns_Tick);
             }
         }
 
@@ -294,7 +346,7 @@ namespace ConnectFourWebApp
             if (TopLevelState == States.SetUp &&
                 (SetUpState == States.Restore || SetUpState == States.StartGame)
                 || TopLevelState == States.Play)
-            {
+            {   
                 GoPlayState();
             }
         }

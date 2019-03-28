@@ -32,6 +32,7 @@ namespace ConnectFourWebApp
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panelBoard = new System.Windows.Forms.Panel();
             this.btnSave = new System.Windows.Forms.Button();
             this.txtPlayerTurn = new System.Windows.Forms.TextBox();
@@ -45,6 +46,8 @@ namespace ConnectFourWebApp
             this.SaveRestoreBtn = new System.Windows.Forms.Button();
             this.WinBox = new System.Windows.Forms.TextBox();
             this.txtInvalidLocation = new System.Windows.Forms.TextBox();
+            this.timerTurns = new System.Windows.Forms.Timer(this.components);
+            this.txtTimer = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.rowUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.columnUpDown)).BeginInit();
             this.SuspendLayout();
@@ -215,11 +218,31 @@ namespace ConnectFourWebApp
             this.txtInvalidLocation.Text = "Invalid Location. Try Again.";
             this.txtInvalidLocation.Visible = false;
             // 
+            // timerTurns
+            // 
+            this.timerTurns.Interval = 5000;
+            this.timerTurns.Tick += new System.EventHandler(this.timerTurns_Tick);
+            // 
+            // txtTimer
+            // 
+            this.txtTimer.BackColor = System.Drawing.SystemColors.Control;
+            this.txtTimer.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txtTimer.Location = new System.Drawing.Point(308, 41);
+            this.txtTimer.Margin = new System.Windows.Forms.Padding(5);
+            this.txtTimer.Multiline = true;
+            this.txtTimer.Name = "txtTimer";
+            this.txtTimer.Size = new System.Drawing.Size(198, 20);
+            this.txtTimer.TabIndex = 12;
+            this.txtTimer.Text = "Player Took Too Long.";
+            this.txtTimer.Visible = false;
+            // 
             // ConnectFour
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.txtTimer);
             this.Controls.Add(this.txtInvalidLocation);
             this.Controls.Add(this.WinBox);
             this.Controls.Add(this.SaveRestoreBtn);
@@ -257,6 +280,8 @@ namespace ConnectFourWebApp
         private System.Windows.Forms.Button SaveRestoreBtn;
         private System.Windows.Forms.TextBox WinBox;
         private System.Windows.Forms.TextBox txtInvalidLocation;
+        private System.Windows.Forms.Timer timerTurns;
+        private System.Windows.Forms.TextBox txtTimer;
     }
 }
 
