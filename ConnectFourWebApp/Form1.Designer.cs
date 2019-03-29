@@ -48,6 +48,7 @@ namespace ConnectFourWebApp
             this.txtInvalidLocation = new System.Windows.Forms.TextBox();
             this.timerTurns = new System.Windows.Forms.Timer(this.components);
             this.txtTimer = new System.Windows.Forms.TextBox();
+            this.timerGame = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.rowUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.columnUpDown)).BeginInit();
             this.SuspendLayout();
@@ -221,7 +222,6 @@ namespace ConnectFourWebApp
             // timerTurns
             // 
             this.timerTurns.Interval = 5000;
-            this.timerTurns.Tick += new System.EventHandler(this.timerTurns_Tick);
             // 
             // txtTimer
             // 
@@ -236,6 +236,10 @@ namespace ConnectFourWebApp
             this.txtTimer.TabIndex = 12;
             this.txtTimer.Text = "Player Took Too Long.";
             this.txtTimer.Visible = false;
+            // 
+            // timerGame
+            // 
+            this.timerGame.Interval = 30000;
             // 
             // ConnectFour
             // 
@@ -282,6 +286,7 @@ namespace ConnectFourWebApp
         private System.Windows.Forms.TextBox txtInvalidLocation;
         private System.Windows.Forms.Timer timerTurns;
         private System.Windows.Forms.TextBox txtTimer;
+        private System.Windows.Forms.Timer timerGame;
     }
 }
 

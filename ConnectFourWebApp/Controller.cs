@@ -53,13 +53,14 @@ namespace ConnectFourWebApp
         private NumericUpDown columnUpDown = null;
         private Timer timerTurns = null;
         private TextBox txtTimer = null;
+        private Timer timerGame = null;
 
         /// <summary>
         /// Default constructor to grab GUI widgets to control
         /// </summary>
         public Controller(Panel board, TextBox PlayerT, TextBox WinB, TextBox invalidLoc,
             Button save, Button exit, Label row, Label col, NumericUpDown udRow, NumericUpDown udCol,
-            Timer timerT, TextBox txtTime)
+            Timer timerT, TextBox txtTime, Timer tGame)
         {
             panelBoard = board;
             txtPlayerTurn = PlayerT;
@@ -73,6 +74,7 @@ namespace ConnectFourWebApp
             columnUpDown = udCol;
             timerTurns = timerT;
             txtTimer = txtTime;
+            timerGame = tGame;
             //enter initial state
             GoSetupState();
         }
@@ -158,34 +160,47 @@ namespace ConnectFourWebApp
             board = new Board();
             board.SetBoard();
             txtInvalidLocation.Visible = false;
+            txtTimer.Visible = false;
             txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
 
-            timerTurns.Enabled = true;
-            System.Diagnostics.Debug.WriteLine("Timer Enabled");
+            //Start timer on game - automatic tie after 5 minutes
+            timerGame.Enabled = true;
+            timerGame.Tick += TimerGame_Tick;
 
+            timerTurns.Enabled = true;
             //When timer runs out of time go to timer event
-            timerTurns.Tick += new EventHandler(TimerTurns_Tick); 
+            timerTurns.Tick += TimerTurns_Tick;
 
 
             //Testing purposes
             System.Diagnostics.Debug.WriteLine("hit");
+            System.Diagnostics.Debug.WriteLine("Timer Enabled" + currentP.turnNumber);
         }
 
         private void TimerTurns_Tick(object Sender, EventArgs e)
         {
-            txtTimer.Visible = true;
+            timerTurns.Enabled = false;
             txtTimer.Text = "Time is up for Player " + currentP.turnNumber;
+            txtTimer.Visible = true;
 
             if (currentP.turnNumber == 1)
             {
                 currentP.turnNumber = 2;
-            } else
+                currentP.piece = 'O';
+            } else if (currentP.turnNumber == 2)
             {
                 currentP.turnNumber = 1;
+                currentP.piece = 'X';
             }
             txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
         }
-        
+
+        private void TimerGame_Tick(object Sender, EventArgs e)
+        {
+            txtInvalidLocation.Text = "Game Time is Up. No One Won.";
+            txtInvalidLocation.Visible = true;
+        }
+
         private void GoPlayState()
         {
             TopLevelState = States.Play;
@@ -234,7 +249,7 @@ namespace ConnectFourWebApp
                         txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
 
                         timerTurns.Enabled = true;
-                        System.Diagnostics.Debug.WriteLine("Timer Enabled");
+                        System.Diagnostics.Debug.WriteLine("Timer Enabled" + currentP.turnNumber);
                     }
                 }
                 else if (currentP.turnNumber == 2)
@@ -251,7 +266,7 @@ namespace ConnectFourWebApp
                         txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
 
                         timerTurns.Enabled = true;
-                        System.Diagnostics.Debug.WriteLine("Timer Enabled");
+                        System.Diagnostics.Debug.WriteLine("Timer Enabled" + currentP.turnNumber);
                     }
                 }
 
@@ -259,14 +274,16 @@ namespace ConnectFourWebApp
                 IfGameOverTransition();
 
                 //When timer runs out of time go to timer event
-                timerTurns.Tick += new EventHandler(TimerTurns_Tick);
+                //timerTurns.Tick += new EventHandler(TimerTurns_Tick);
+                timerTurns.Tick += TimerTurns_Tick;
 
             } else //if the selection was invalid alert the user with a textbox
             {
                 txtInvalidLocation.Visible = true;
 
                 //When timer runs out of time go to timer event
-                timerTurns.Tick += new EventHandler(TimerTurns_Tick);
+                //timerTurns.Tick += new EventHandler(TimerTurns_Tick);
+                timerTurns.Tick += TimerTurns_Tick;
             }
         }
 
