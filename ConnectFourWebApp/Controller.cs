@@ -193,6 +193,8 @@ namespace ConnectFourWebApp
                 currentP.piece = 'X';
             }
             txtPlayerTurn.Text = "Turn: Player " + currentP.turnNumber;
+            timerTurns.Enabled = true;
+
         }
 
         private void TimerGame_Tick(object Sender, EventArgs e)
@@ -283,8 +285,9 @@ namespace ConnectFourWebApp
 
                 //When timer runs out of time go to timer event
                 //timerTurns.Tick += new EventHandler(TimerTurns_Tick);
-                timerTurns.Tick += TimerTurns_Tick;
+                
             }
+            timerTurns.Tick += TimerTurns_Tick;
         }
 
         private void GoFinishState()
